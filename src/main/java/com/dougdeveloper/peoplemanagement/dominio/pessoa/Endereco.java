@@ -9,12 +9,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(exclude = "principal")
 @ToString
 public class Endereco {
 	
 	private Long id;
-
+	
 	private String logradouro;
 	
 	private Cep cep;
@@ -24,4 +24,12 @@ public class Endereco {
 	private String cidade;
 	
 	private boolean principal;
+	
+	public Endereco(String logradouro, String digitosCep, String numero, String cidade, boolean principal) {
+		this.logradouro = logradouro;
+		this.cep = new Cep(digitosCep);
+		this.numero = numero;
+		this.cidade = cidade;
+		this.principal = principal;
+	}
 }
