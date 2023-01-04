@@ -20,8 +20,10 @@ public class RemoverEnderecoDaPessoa {
 
 	public Pessoa executar(Long id, Long enderecoId) {
 		Pessoa pessoa = buscarPessoaPorId.executar(id);
-		Optional<Endereco> enderecoARemover = pessoa.getEnderecos().stream()
-				.filter(endereco -> endereco.getId() == enderecoId).findFirst();
+		Optional<Endereco> enderecoARemover = pessoa.getEnderecos()
+				.stream()
+				.filter(endereco -> endereco.getId() == enderecoId)
+				.findFirst();
 		if(enderecoARemover.isEmpty()) {
 			throw new ObjetoNaoEncontradoException("Endereço com id " + enderecoId + " não encontrado!");
 		}

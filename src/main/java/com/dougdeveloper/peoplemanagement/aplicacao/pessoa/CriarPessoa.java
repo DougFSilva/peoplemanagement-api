@@ -15,8 +15,11 @@ public class CriarPessoa {
 	}
 
 	public Pessoa executar(DadosCriarPessoa dados) {
-		List<Endereco> enderecos = dados.enderecos().stream().map(endereco -> new Endereco(endereco.logradouro(),
-				endereco.cep(), endereco.numero(), endereco.cidade(), endereco.principal())).toList();
+		List<Endereco> enderecos = dados.enderecos()
+				.stream()
+				.map(endereco -> new Endereco(endereco.logradouro(),
+						endereco.cep(), endereco.numero(), endereco.cidade(), endereco.principal()))
+				.toList();
 		ValidarEnderecos.validar(enderecos);
 		Pessoa pessoa = new Pessoa(null, dados.nome(), dados.dataNascimento(), enderecos);
 		return repository.criar(pessoa);
