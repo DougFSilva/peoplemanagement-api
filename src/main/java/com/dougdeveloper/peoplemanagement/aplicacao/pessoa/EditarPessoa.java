@@ -11,10 +11,10 @@ public class EditarPessoa {
 		this.repository = repository;
 	}
 
-	public Pessoa executar(Long id, Pessoa pessoaEditada, BuscarPessoaPorId buscarPessoaPorId) {
+	public Pessoa executar(Long id, DadosEditarPessoa dados, BuscarPessoaPorId buscarPessoaPorId) {
 		Pessoa pessoa = buscarPessoaPorId.executar(id);
-		pessoa.setNome(pessoaEditada.getNome());
-		pessoa.setDataNascimento(pessoaEditada.getDataNascimento());
+		pessoa.setNome(dados.nome());
+		pessoa.setDataNascimento(dados.dataNascimento());
 		return repository.editar(pessoa);
 	}
 }
