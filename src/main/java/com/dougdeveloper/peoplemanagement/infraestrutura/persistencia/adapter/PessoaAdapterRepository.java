@@ -11,60 +11,68 @@ import org.springframework.stereotype.Repository;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Cep;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.PessoaRepository;
+import com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.converter.PessoaEntityConverter;
 import com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.dao.PessoaRepositoryDao;
+import com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.entity.PessoaEntity;
 
 @Repository
 public class PessoaAdapterRepository implements PessoaRepository {
 
 	@Autowired
 	private PessoaRepositoryDao repository;
-	
+
+	@Autowired
+	private PessoaEntityConverter pessoaEntityConverter;
+
 	@Override
 	public Pessoa criar(Pessoa pessoa) {
-		// TODO Auto-generated method stub
-		return null;
+		PessoaEntity entity = pessoaEntityConverter.paraPessoaEntity(pessoa);
+		return pessoaEntityConverter.paraPessoa(repository.save(entity));
 	}
 
 	@Override
-	public Pessoa deletar(Pessoa pessoa) {
-		// TODO Auto-generated method stub
-		return null;
+	public void deletar(Pessoa pessoa) {
+		PessoaEntity entity = pessoaEntityConverter.paraPessoaEntity(pessoa);
+		repository.delete(entity);
 	}
 
 	@Override
 	public Pessoa editar(Pessoa pessoaEditada) {
-		// TODO Auto-generated method stub
-		return null;
+		PessoaEntity entity = pessoaEntityConverter.paraPessoaEntity(pessoaEditada);
+		return pessoaEntityConverter.paraPessoa(repository.save(entity));
 	}
 
 	@Override
 	public Optional<Pessoa> buscarPorId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<PessoaEntity> entity = repository.findById(id);
+		if (entity.isPresent()) {
+			return Optional.of(pessoaEntityConverter.paraPessoa(entity.get()));
+		}
+		return Optional.empty();
 	}
 
 	@Override
 	public List<Pessoa> buscarPorNome(String nome) {
-		// TODO Auto-generated method stub
-		return null;
+		List<PessoaEntity> entities = repository.findAllByNomeContainingIgnoreCase(nome);
+		return entities.stream().map(entity -> pessoaEntityConverter.paraPessoa(entity)).toList();
 	}
 
 	@Override
 	public Page<Pessoa> buscarPorCep(Cep cep, Pageable paginacao) {
-		// TODO Auto-generated method stub
-		return null;
+		Page<PessoaEntity> entities = repository.findAllByEnderecoCep(cep, paginacao);
+		return entities.map(entity -> pessoaEntityConverter.paraPessoa(entity));
 	}
 
 	@Override
 	public Page<Pessoa> buscarPorCidade(String cidade, Pageable paginacao) {
-		// TODO Auto-generated method stub
-		return null;
+		Page<PessoaEntity> entities = repository.findAllByCidade(cidade, paginacao);
+		return entities.map(entity -> pessoaEntityConverter.paraPessoa(entity));
 	}
 
 	@Override
 	public Page<Pessoa> listar(Pageable paginacao) {
-		// TODO Auto-generated method stub
-		return null;
+		Page<PessoaEntity> entities = repository.findAll(paginacao);
+		return entities.map(entity -> pessoaEntityConverter.paraPessoa(entity));
 	}
 
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.entity.EnderecoEntity;
 
 @Repository
-public interface EnderecoRepositoryDao extends JpaRepository<Long, EnderecoEntity> {
+public interface EnderecoRepositoryDao extends JpaRepository<EnderecoEntity, Long > {
 
 }

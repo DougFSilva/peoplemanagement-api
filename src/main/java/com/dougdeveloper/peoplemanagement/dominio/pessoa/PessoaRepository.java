@@ -10,7 +10,7 @@ public interface PessoaRepository {
 
 	Pessoa criar(Pessoa pessoa);
 	
-	Pessoa deletar(Pessoa pessoa);
+	void deletar(Pessoa pessoa);
 	
 	Pessoa editar(Pessoa pessoaEditada);
 	
