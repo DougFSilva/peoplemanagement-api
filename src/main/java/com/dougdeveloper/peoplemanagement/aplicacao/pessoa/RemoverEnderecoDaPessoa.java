@@ -11,14 +11,11 @@ public class RemoverEnderecoDaPessoa {
 
 	private final PessoaRepository repository;
 
-	private final BuscarPessoaPorId buscarPessoaPorId;
-
-	public RemoverEnderecoDaPessoa(PessoaRepository repository, BuscarPessoaPorId buscarPessoaPorId) {
+	public RemoverEnderecoDaPessoa(PessoaRepository repository) {
 		this.repository = repository;
-		this.buscarPessoaPorId = buscarPessoaPorId;
 	}
 
-	public Pessoa executar(Long id, Long enderecoId) {
+	public Pessoa executar(Long id, Long enderecoId, BuscarPessoaPorId buscarPessoaPorId) {
 		Pessoa pessoa = buscarPessoaPorId.executar(id);
 		Optional<Endereco> enderecoARemover = pessoa.getEnderecos()
 				.stream()

@@ -8,14 +8,11 @@ public class AdicionarEnderecoAPessoa {
 
 	private final PessoaRepository repository;
 
-	private final BuscarPessoaPorId buscarPessoaPorId;
-
-	public AdicionarEnderecoAPessoa(PessoaRepository repository, BuscarPessoaPorId buscarPessoaPorId) {
+	public AdicionarEnderecoAPessoa(PessoaRepository repository) {
 		this.repository = repository;
-		this.buscarPessoaPorId = buscarPessoaPorId;
 	}
 
-	public Pessoa executar(Long id, DadosCriarEndereco dadosEndereco) {
+	public Pessoa executar(Long id, DadosCriarEndereco dadosEndereco, BuscarPessoaPorId buscarPessoaPorId) {
 		Pessoa pessoa = buscarPessoaPorId.executar(id);
 		Endereco novoEndereco = new Endereco(dadosEndereco.logradouro(), dadosEndereco.cep(), dadosEndereco.numero(),
 				dadosEndereco.cidade(), dadosEndereco.principal());

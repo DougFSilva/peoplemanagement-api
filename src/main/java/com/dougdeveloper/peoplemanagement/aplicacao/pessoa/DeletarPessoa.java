@@ -7,14 +7,11 @@ public class DeletarPessoa {
 
 	private final PessoaRepository repository;
 	
-	private final BuscarPessoaPorId buscarPessoaPorId;
-	
-	public DeletarPessoa(PessoaRepository repository, BuscarPessoaPorId buscarPessoaPorId) {
+	public DeletarPessoa(PessoaRepository repository) {
 		this.repository = repository;
-		this.buscarPessoaPorId = buscarPessoaPorId;
 	}
 	
-	public void executar(Long id) {
+	public void executar(Long id, BuscarPessoaPorId buscarPessoaPorId) {
 		Pessoa pessoa = buscarPessoaPorId.executar(id);
 		repository.deletar(pessoa);
 	}
