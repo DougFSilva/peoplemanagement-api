@@ -1,6 +1,7 @@
 package com.dougdeveloper.peoplemanagement.dominio.pessoa;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -22,5 +23,5 @@ public class Pessoa {
 	
 	private LocalDate dataNascimento;
 	
-	private List<Endereco> enderecos;
+	private List<Endereco> enderecos = new ArrayList<>();
 }

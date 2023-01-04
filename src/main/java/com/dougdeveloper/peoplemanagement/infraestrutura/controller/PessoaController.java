@@ -21,14 +21,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.AdicionarEnderecoAPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoaPorId;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarPessoaPorId;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarPessoasPorCep;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarPessoasPorCidade;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarPessoasPorNome;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarTodasPessoas;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoasPorCep;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoasPorCidade;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoasPorNome;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDeTodasPessoas;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.CriarPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.DadosCriarEndereco;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.DadosCriarPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.DadosDePessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.DadosEditarPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.DeletarPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.EditarPessoa;
@@ -50,16 +52,19 @@ public class PessoaController {
 	private BuscarPessoaPorId buscarPessoaPorId;
 	
 	@Autowired
-	private BuscarPessoasPorCep buscarPessoasPorCep;
+	private BuscarDadosDePessoaPorId buscarDadosDePessoaPorId;
 	
 	@Autowired
-	private BuscarPessoasPorCidade buscarPessoasPorCidade;
+	private BuscarDadosDePessoasPorCep buscarPessoasPorCep;
 	
 	@Autowired
-	private BuscarPessoasPorNome buscarPessoasPorNome;
+	private BuscarDadosDePessoasPorCidade buscarPessoasPorCidade;
 	
 	@Autowired
-	private BuscarTodasPessoas buscarTodasPessoas;
+	private BuscarDadosDePessoasPorNome buscarPessoasPorNome;
+	
+	@Autowired
+	private BuscarDadosDeTodasPessoas buscarTodasPessoas;
 	
 	@Autowired
 	private CriarPessoa criarPessoa;
@@ -115,37 +120,37 @@ public class PessoaController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Pessoa> buscarPorId(@PathVariable Long id){
-		Pessoa pessoa = buscarPessoaPorId.executar(id);
-		return ResponseEntity.ok().body(pessoa);
+	public ResponseEntity<DadosDePessoa> buscarPorId(@PathVariable Long id){
+		DadosDePessoa dadosDePessoa = buscarDadosDePessoaPorId.executar(id);
+		return ResponseEntity.ok().body(dadosDePessoa);
 	}
 	
-	@GetMapping(value = "/cep/{id}")
+	@GetMapping(value = "/cep/{cep}")
 	@Cacheable(value = "buscarPorCep")
-	public ResponseEntity<Page<Pessoa>> buscarPorCep(@PathVariable String cep, Pageable paginacao){
-		Page<Pessoa> pessoas = buscarPessoasPorCep.executar(cep, paginacao);
-		return ResponseEntity.ok().body(pessoas);
+	public ResponseEntity<Page<DadosDePessoa>> buscarPorCep(@PathVariable String cep, Pageable paginacao){
+		Page<DadosDePessoa> dadosDePessoas = buscarPessoasPorCep.executar(cep, paginacao);
+		return ResponseEntity.ok().body(dadosDePessoas);
 	}
 	
 	@GetMapping(value = "/cidade/{cidade}")
 	@Cacheable(value = "buscarPorCidade")
-	public ResponseEntity<Page<Pessoa>> buscarPorCidade(@PathVariable String cidade, Pageable paginacao){
-		Page<Pessoa> pessoas = buscarPessoasPorCidade.executar(cidade, paginacao);
-		return ResponseEntity.ok().body(pessoas);
+	public ResponseEntity<Page<DadosDePessoa>> buscarPorCidade(@PathVariable String cidade, Pageable paginacao){
+		Page<DadosDePessoa> dadosDePessoas = buscarPessoasPorCidade.executar(cidade, paginacao);
+		return ResponseEntity.ok().body(dadosDePessoas);
 	}
 	
 	@GetMapping(value = "/nome/{nome}")
 	@Cacheable(value = "buscarPorNome")
-	public ResponseEntity<List<Pessoa>> buscarPorNome(@PathVariable String nome){
-		List<Pessoa> pessoas = buscarPessoasPorNome.executar(nome);
-		return ResponseEntity.ok().body(pessoas);
+	public ResponseEntity<List<DadosDePessoa>> buscarPorNome(@PathVariable String nome){
+		List<DadosDePessoa> dadosDePessoas = buscarPessoasPorNome.executar(nome);
+		return ResponseEntity.ok().body(dadosDePessoas);
 	}
 	
 	@GetMapping
 	@Cacheable(value = "buscarTodas")
-	public ResponseEntity<Page<Pessoa>> buscarTodas(Pageable paginacao){
-		Page<Pessoa> pessoas = buscarTodasPessoas.executar(paginacao);
-		return ResponseEntity.ok().body(pessoas);
+	public ResponseEntity<Page<DadosDePessoa>> buscarTodas(Pageable paginacao){
+		Page<DadosDePessoa> dadosDePessoas = buscarTodasPessoas.executar(paginacao);
+		return ResponseEntity.ok().body(dadosDePessoas);
 	}
 	
 }

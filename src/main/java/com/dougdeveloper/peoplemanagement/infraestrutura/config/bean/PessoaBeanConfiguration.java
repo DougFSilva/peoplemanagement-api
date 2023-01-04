@@ -5,11 +5,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.AdicionarEnderecoAPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoaPorId;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarPessoaPorId;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarPessoasPorCep;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarPessoasPorCidade;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarPessoasPorNome;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarTodasPessoas;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoasPorCep;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoasPorCidade;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoasPorNome;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDeTodasPessoas;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.CriarPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.DeletarPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.EditarPessoa;
@@ -33,23 +34,28 @@ public class PessoaBeanConfiguration {
 	}
 	
 	@Bean
-	public BuscarPessoasPorCep buscarPessoasPorCep() {
-		return new BuscarPessoasPorCep(pessoaAdapterRepository);
+	public BuscarDadosDePessoaPorId buscarDadosDePessoaPorId() {
+		return new BuscarDadosDePessoaPorId(pessoaAdapterRepository);
 	}
 	
 	@Bean
-	public BuscarPessoasPorCidade buscarPessoasPorCidade() {
-		return new BuscarPessoasPorCidade(pessoaAdapterRepository);
+	public BuscarDadosDePessoasPorCep buscarPessoasPorCep() {
+		return new BuscarDadosDePessoasPorCep(pessoaAdapterRepository);
 	}
 	
 	@Bean
-	public BuscarPessoasPorNome buscarPessoasPorNome() {
-		return new BuscarPessoasPorNome(pessoaAdapterRepository);
+	public BuscarDadosDePessoasPorCidade buscarPessoasPorCidade() {
+		return new BuscarDadosDePessoasPorCidade(pessoaAdapterRepository);
 	}
 	
 	@Bean
-	public BuscarTodasPessoas buscarTodasPessoas() {
-		return new BuscarTodasPessoas(pessoaAdapterRepository);
+	public BuscarDadosDePessoasPorNome buscarPessoasPorNome() {
+		return new BuscarDadosDePessoasPorNome(pessoaAdapterRepository);
+	}
+	
+	@Bean
+	public BuscarDadosDeTodasPessoas buscarTodasPessoas() {
+		return new BuscarDadosDeTodasPessoas(pessoaAdapterRepository);
 	}
 	
 	@Bean

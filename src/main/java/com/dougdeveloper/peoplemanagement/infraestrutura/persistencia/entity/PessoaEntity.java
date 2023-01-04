@@ -1,6 +1,7 @@
 package com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -36,6 +37,6 @@ public class PessoaEntity {
 	private LocalDate dataNascimento;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	private List<EnderecoEntity> enderecos;
+	private List<EnderecoEntity> enderecos = new ArrayList<>();
 	
 }

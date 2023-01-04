@@ -59,13 +59,13 @@ public class PessoaAdapterRepository implements PessoaRepository {
 
 	@Override
 	public Page<Pessoa> buscarPorCep(Cep cep, Pageable paginacao) {
-		Page<PessoaEntity> entities = repository.findAllByEnderecoCep(cep, paginacao);
+		Page<PessoaEntity> entities = repository.findAllByEnderecosCepDigitos(cep.getDigitos(), paginacao);
 		return entities.map(entity -> pessoaEntityConverter.paraPessoa(entity));
 	}
 
 	@Override
 	public Page<Pessoa> buscarPorCidade(String cidade, Pageable paginacao) {
-		Page<PessoaEntity> entities = repository.findAllByCidade(cidade, paginacao);
+		Page<PessoaEntity> entities = repository.findAllByEnderecosCidade(cidade, paginacao);
 		return entities.map(entity -> pessoaEntityConverter.paraPessoa(entity));
 	}
 
