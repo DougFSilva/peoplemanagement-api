@@ -9,7 +9,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = "principal")
+@EqualsAndHashCode(of = "id")
 @ToString
 public class Endereco {
 	

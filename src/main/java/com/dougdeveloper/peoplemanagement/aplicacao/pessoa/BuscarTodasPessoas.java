@@ -6,16 +6,15 @@ import org.springframework.data.domain.Pageable;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.PessoaRepository;
 
-public class BuscarPessoasPorCidade {
+public class BuscarTodasPessoas {
 
 	private final PessoaRepository repository;
-
-	public BuscarPessoasPorCidade(PessoaRepository repository) {
+	
+	public BuscarTodasPessoas(PessoaRepository repository) {
 		this.repository = repository;
 	}
 	
-	public Page<Pessoa> executar(String cidade, Pageable paginacao){
-		return repository.buscarPorCidade(cidade, paginacao);
+	public Page<Pessoa> executar(Pageable paginacao){
+		return repository.listar(paginacao);
 	}
-
 }

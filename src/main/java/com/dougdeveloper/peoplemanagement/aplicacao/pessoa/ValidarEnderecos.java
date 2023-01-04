@@ -7,7 +7,7 @@ import com.dougdeveloper.peoplemanagement.dominio.pessoa.Endereco;
 
 public class ValidarEnderecos {
 
-	public void validar(List<Endereco> enderecos) {
+	public static void validar(List<Endereco> enderecos) {
 		long contagemDeEnderecosPrincipais = enderecos.stream().filter(endereco -> endereco.isPrincipal()).count();
 		if(contagemDeEnderecosPrincipais > 1) {
 			throw new ContagemDeEnderecosPrincipaisException("Somente um endereço deve ser anotado como principal!");

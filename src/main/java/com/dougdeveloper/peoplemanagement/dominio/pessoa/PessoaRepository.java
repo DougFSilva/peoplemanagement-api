@@ -14,10 +14,6 @@ public interface PessoaRepository {
 	
 	Pessoa editar(Pessoa pessoaEditada);
 	
-	Pessoa adicionarEndereco(Long id, Endereco endereco);
-	
-	Pessoa removerEndereco(Long id, Long enderecoId);
-	
 	Optional<Pessoa> buscarPorId(Long id);
 	
 	List<Pessoa> buscarPorNome(String nome);
