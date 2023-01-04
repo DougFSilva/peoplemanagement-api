@@ -22,4 +22,6 @@ public class Endereco {
 	private String numero;
 	
 	private String cidade;
+	
+	private boolean principal;
 }
