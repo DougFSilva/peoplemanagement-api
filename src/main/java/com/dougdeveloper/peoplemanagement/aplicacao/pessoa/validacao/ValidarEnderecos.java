@@ -1,4 +1,4 @@
-package com.dougdeveloper.peoplemanagement.aplicacao.pessoa;
+package com.dougdeveloper.peoplemanagement.aplicacao.pessoa.validacao;
 
 import java.util.List;
 

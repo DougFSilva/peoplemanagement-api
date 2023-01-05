@@ -11,7 +11,8 @@ public class DeletarPessoa {
 		this.repository = repository;
 	}
 	
-	public void executar(Long id, BuscarPessoaPorId buscarPessoaPorId) {
+	public void executar(Long id) {
+		BuscarPessoaPorId buscarPessoaPorId = new BuscarPessoaPorId(repository);
 		Pessoa pessoa = buscarPessoaPorId.executar(id);
 		repository.deletar(pessoa);
 	}

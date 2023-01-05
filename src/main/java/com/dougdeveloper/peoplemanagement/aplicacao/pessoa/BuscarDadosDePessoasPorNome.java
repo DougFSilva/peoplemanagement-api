@@ -2,6 +2,7 @@ package com.dougdeveloper.peoplemanagement.aplicacao.pessoa;
 
 import java.util.List;
 
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosDePessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.PessoaRepository;
 
 public class BuscarDadosDePessoasPorNome {

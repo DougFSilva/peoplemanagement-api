@@ -1,6 +1,7 @@
 package com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.converter;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class PessoaEntityConverter {
 		List<Endereco> enderecos = entity.getEnderecos()
 				.stream()
 				.map(enderecoEntity -> enderecoEntityConverter.paraEndereco(enderecoEntity))
-				.toList();
+				.collect(Collectors.toList());
 		return new Pessoa(entity.getId(), entity.getNome(), entity.getDataNascimento(), enderecos);
 	}
 }

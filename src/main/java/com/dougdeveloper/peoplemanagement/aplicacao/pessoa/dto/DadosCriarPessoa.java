@@ -1,4 +1,4 @@
-package com.dougdeveloper.peoplemanagement.aplicacao.pessoa;
+package com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto;
 
 import java.time.LocalDate;
 import java.util.List;

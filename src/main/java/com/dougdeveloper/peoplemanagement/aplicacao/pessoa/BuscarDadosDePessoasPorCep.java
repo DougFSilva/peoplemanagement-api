@@ -3,6 +3,7 @@ package com.dougdeveloper.peoplemanagement.aplicacao.pessoa;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosDePessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Cep;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.PessoaRepository;
 

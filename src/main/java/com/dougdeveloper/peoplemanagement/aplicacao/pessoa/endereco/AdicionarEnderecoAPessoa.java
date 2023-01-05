@@ -1,5 +1,8 @@
-package com.dougdeveloper.peoplemanagement.aplicacao.pessoa;
+package com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco;
 
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarPessoaPorId;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarEndereco;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosDePessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Endereco;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.PessoaRepository;
@@ -12,7 +15,8 @@ public class AdicionarEnderecoAPessoa {
 		this.repository = repository;
 	}
 
-	public Pessoa executar(Long id, DadosCriarEndereco dadosEndereco, BuscarPessoaPorId buscarPessoaPorId) {
+	public DadosDePessoa executar(Long id, DadosCriarEndereco dadosEndereco) {
+		BuscarPessoaPorId buscarPessoaPorId = new BuscarPessoaPorId(repository);
 		Pessoa pessoa = buscarPessoaPorId.executar(id);
 		Endereco novoEndereco = new Endereco(dadosEndereco.logradouro(), dadosEndereco.cep(), dadosEndereco.numero(),
 				dadosEndereco.cidade(), dadosEndereco.principal());
@@ -20,7 +24,7 @@ public class AdicionarEnderecoAPessoa {
 			pessoa.getEnderecos().forEach(endereco -> endereco.setPrincipal(false));
 		}
 		pessoa.getEnderecos().add(novoEndereco);
-		return repository.editar(pessoa);
+		return new DadosDePessoa(repository.editar(pessoa));
 	}
 
 }

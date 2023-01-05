@@ -2,6 +2,8 @@ package com.dougdeveloper.peoplemanagement.aplicacao.pessoa;
 
 import java.util.List;
 
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.validacao.ValidarEnderecos;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Endereco;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.PessoaRepository;

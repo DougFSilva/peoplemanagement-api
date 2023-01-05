@@ -1,4 +1,4 @@
-package com.dougdeveloper.peoplemanagement.aplicacao.pessoa;
+package com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

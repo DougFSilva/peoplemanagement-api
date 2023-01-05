@@ -1,7 +1,9 @@
-package com.dougdeveloper.peoplemanagement.aplicacao.pessoa;
+package com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco;
 
 import java.util.Optional;
 
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarPessoaPorId;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosDePessoa;
 import com.dougdeveloper.peoplemanagement.dominio.exception.ObjetoNaoEncontradoException;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Endereco;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
@@ -15,7 +17,8 @@ public class RemoverEnderecoDaPessoa {
 		this.repository = repository;
 	}
 
-	public Pessoa executar(Long id, Long enderecoId, BuscarPessoaPorId buscarPessoaPorId) {
+	public DadosDePessoa executar(Long id, Long enderecoId) {
+		BuscarPessoaPorId buscarPessoaPorId = new BuscarPessoaPorId(repository);
 		Pessoa pessoa = buscarPessoaPorId.executar(id);
 		Optional<Endereco> enderecoARemover = pessoa.getEnderecos()
 				.stream()
@@ -25,6 +28,6 @@ public class RemoverEnderecoDaPessoa {
 			throw new ObjetoNaoEncontradoException("Endereço com id " + enderecoId + " não encontrado!");
 		}
 		pessoa.getEnderecos().remove(enderecoARemover.get());
-		return repository.editar(pessoa);
+		return new DadosDePessoa(repository.editar(pessoa));
 	}
 }
