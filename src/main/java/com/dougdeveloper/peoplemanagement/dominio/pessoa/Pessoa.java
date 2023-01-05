@@ -24,4 +24,9 @@ public class Pessoa {
 	private LocalDate dataNascimento;
 	
 	private List<Endereco> enderecos = new ArrayList<>();
+	
+	public Pessoa(String nome, LocalDate dataNascimento) {
+		this.nome = nome;
+		this.dataNascimento = dataNascimento;
+	}
 }

@@ -1,10 +1,6 @@
 package com.dougdeveloper.peoplemanagement.aplicacao.pessoa;
 
-import java.util.List;
-
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarPessoa;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.validacao.ValidarEnderecos;
-import com.dougdeveloper.peoplemanagement.dominio.pessoa.Endereco;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.PessoaRepository;
 
@@ -17,13 +13,7 @@ public class CriarPessoa {
 	}
 
 	public Pessoa executar(DadosCriarPessoa dados) {
-		List<Endereco> enderecos = dados.enderecos()
-				.stream()
-				.map(endereco -> new Endereco(endereco.logradouro(),
-						endereco.cep(), endereco.numero(), endereco.cidade(), endereco.principal()))
-				.toList();
-		ValidarEnderecos.validar(enderecos);
-		Pessoa pessoa = new Pessoa(null, dados.nome(), dados.dataNascimento(), enderecos);
+		Pessoa pessoa = new Pessoa(dados.nome(), dados.dataNascimento());
 		return repository.criar(pessoa);
 	}
 
