@@ -11,6 +11,8 @@ import com.dougdeveloper.peoplemanagement.dominio.pessoa.Endereco;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.PessoaRepository;
 
+import jakarta.transaction.Transactional;
+
 public class EditarEnderecoDaPessoa {
 
 	private final PessoaRepository repository;
@@ -19,6 +21,7 @@ public class EditarEnderecoDaPessoa {
 		this.repository = repository;
 	}
 
+	@Transactional
 	public DadosDePessoa executar(Long id, DadosEditarEndereco dados) {
 		BuscarPessoaPorId buscarPessoaPorId = new BuscarPessoaPorId(repository);
 		Pessoa pessoa = buscarPessoaPorId.executar(id);

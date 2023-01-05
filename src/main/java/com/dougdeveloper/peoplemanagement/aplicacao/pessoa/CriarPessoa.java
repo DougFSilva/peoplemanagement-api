@@ -1,8 +1,11 @@
 package com.dougdeveloper.peoplemanagement.aplicacao.pessoa;
 
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosDePessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.PessoaRepository;
+
+import jakarta.transaction.Transactional;
 
 public class CriarPessoa {
 
@@ -12,9 +15,10 @@ public class CriarPessoa {
 		this.repository = repository;
 	}
 
-	public Pessoa executar(DadosCriarPessoa dados) {
+	@Transactional
+	public DadosDePessoa executar(DadosCriarPessoa dados) {
 		Pessoa pessoa = new Pessoa(dados.nome(), dados.dataNascimento());
-		return repository.criar(pessoa);
+		return new DadosDePessoa(repository.criar(pessoa));
 	}
 
 }

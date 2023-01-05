@@ -39,7 +39,6 @@ import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.RemoverEnder
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
 
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
@@ -81,17 +80,15 @@ public class PessoaController {
 	private RemoverEnderecoDaPessoa removerEnderecoDaPessoa;
 
 	@PostMapping
-	@Transactional
 	@CacheEvict(value = { "buscarPorCep", "buscarPorCidade", "buscarPorNome", "buscarTodas" }, allEntries = true)
 	@Operation(summary = "Criar Pessoa", description = "Endpoint para criar uma pessoa no sistema")
 	public ResponseEntity<Pessoa> criarPessoa(@RequestBody @Valid DadosCriarPessoa dados) {
-		Pessoa pessoa = criarPessoa.executar(dados);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pessoa.getId()).toUri();
+		DadosDePessoa dadosDePessoa = criarPessoa.executar(dados);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dadosDePessoa.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 
 	@DeleteMapping(value = "/{id}")
-	@Transactional
 	@CacheEvict(value = { "buscarPorCep", "buscarPorCidade", "buscarPorNome", "buscarTodas" }, allEntries = true)
 	@Operation(summary = "Deletar Pessoa", description = "Endpoint para deletar uma pessoa cadastrada no sistema")
 	public ResponseEntity<Void> deletarPessoa(@PathVariable Long id) {
@@ -100,7 +97,6 @@ public class PessoaController {
 	}
 
 	@PutMapping(value = "/{id}")
-	@Transactional
 	@CacheEvict(value = { "buscarPorCep", "buscarPorCidade", "buscarPorNome", "buscarTodas" }, allEntries = true)
 	@Operation(summary = "Editar Pessoa", description = "Endpoint para editar uma pessoa cadastrada no sistema")
 	public ResponseEntity<Pessoa> editarPessoa(@PathVariable Long id, @RequestBody @Valid DadosEditarPessoa dados) {
@@ -109,7 +105,6 @@ public class PessoaController {
 	}
 
 	@PostMapping(value = "/{id}/adicionar-endereco")
-	@Transactional
 	@CacheEvict(value = { "buscarPorCep", "buscarPorCidade", "buscarPorNome", "buscarTodas" }, allEntries = true)
 	@Operation(summary = "Adicionar Endereço à Pessoa", description = "Endpoint para adicionar um endereço à uma pessoa cadastrada no sistema")
 	public ResponseEntity<DadosDePessoa> adicionarEndereco(@PathVariable Long id,
@@ -119,7 +114,6 @@ public class PessoaController {
 	}
 
 	@DeleteMapping(value = "/{id}/remover-endereco/{enderecoId}")
-	@Transactional
 	@CacheEvict(value = { "buscarPorCep", "buscarPorCidade", "buscarPorNome", "buscarTodas" }, allEntries = true)
 	@Operation(summary = "Remover Endereço da Pessoa", description = "Endpoint para remover um endereço de uma pessoa cadastrada no sistema")
 	public ResponseEntity<DadosDePessoa> removerEndereco(@PathVariable Long id, @PathVariable Long enderecoId) {
@@ -128,7 +122,6 @@ public class PessoaController {
 	}
 
 	@PutMapping(value = "/{id}/editar-endereco")
-	@Transactional
 	@CacheEvict(value = { "buscarPorCep", "buscarPorCidade", "buscarPorNome", "buscarTodas" }, allEntries = true)
 	@Operation(summary = "Editar Endereço da Pessoa", description = "Endpoint para editar um endereço de uma pessoa cadastrada no sistema")
 	public ResponseEntity<DadosDePessoa> editarEndereco(@PathVariable Long id,

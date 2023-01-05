@@ -37,7 +37,7 @@ public class PessoaEntity {
 
 	private LocalDate dataNascimento;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "pessoa_id")
 	private List<EnderecoEntity> enderecos = new ArrayList<>();
 
