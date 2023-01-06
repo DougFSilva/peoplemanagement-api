@@ -31,7 +31,7 @@ class CriarPessoaTest {
 	}
 
 	@Test
-	void DeveriaCriarUmaPessoa() {
+	void deveriaCriarUmaPessoa() {
 		Pessoa pessoa = new Pessoa(1l, "Fulano da Silva", LocalDate.parse("1991-04-10"), new ArrayList<>());
 		DadosCriarPessoa dadosCriarPessoa = new DadosCriarPessoa("Fulano da Silva", LocalDate.parse("1991-04-10"));
 		Mockito.when(repository.criar(Mockito.any())).thenReturn(pessoa);
