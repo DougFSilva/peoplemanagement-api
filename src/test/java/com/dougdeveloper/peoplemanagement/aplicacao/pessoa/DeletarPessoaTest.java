@@ -43,7 +43,7 @@ class DeletarPessoaTest {
 		Mockito.when(repository.buscarPorId(id)).thenReturn(Optional.of(pessoa));
 		deletarPessoa.executar(id);
 		Mockito.verify(repository).deletar(pessoaCaptor.capture());
-		assertEquals(pessoaCaptor.getValue().getId(), pessoa.getId());
+		assertEquals(id, pessoaCaptor.getValue().getId());
 	}
 	
 	@Test

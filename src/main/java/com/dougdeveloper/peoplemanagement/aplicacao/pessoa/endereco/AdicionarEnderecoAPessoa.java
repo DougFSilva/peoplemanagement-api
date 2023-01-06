@@ -23,10 +23,7 @@ public class AdicionarEnderecoAPessoa {
 		Pessoa pessoa = buscarPessoaPorId.executar(id);
 		Endereco novoEndereco = new Endereco(dadosEndereco.logradouro(), dadosEndereco.cep(), dadosEndereco.numero(),
 				dadosEndereco.cidade(), dadosEndereco.principal());
-		if(novoEndereco.isPrincipal()) {
-			pessoa.getEnderecos().forEach(endereco -> endereco.setPrincipal(false));
-		}
-		pessoa.getEnderecos().add(novoEndereco);
+		pessoa.adicionarEndereco(novoEndereco);
 		return new DadosDePessoa(repository.editar(pessoa));
 	}
 

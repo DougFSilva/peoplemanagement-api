@@ -28,9 +28,10 @@ public class RemoverEnderecoDaPessoa {
 				.filter(endereco -> endereco.getId() == enderecoId)
 				.findFirst();
 		if(enderecoARemover.isEmpty()) {
-			throw new ObjetoNaoEncontradoException("Endereço com id " + enderecoId + " não encontrado para a pessoa " + pessoa.getNome() + "!");
+			throw new ObjetoNaoEncontradoException(
+					"Endereço com id " + enderecoId + " não encontrado para a pessoa " + pessoa.getNome() + "!");
 		}
-		pessoa.getEnderecos().remove(enderecoARemover.get());
+		pessoa.removerEndereco(enderecoARemover.get());
 		return new DadosDePessoa(repository.editar(pessoa));
 	}
 }

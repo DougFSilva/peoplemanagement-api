@@ -12,19 +12,19 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "id")
 @ToString
 public class Endereco {
-	
+
 	private Long id;
-	
+
 	private String logradouro;
-	
+
 	private Cep cep;
-	
+
 	private String numero;
-	
+
 	private String cidade;
-	
+
 	private boolean principal;
-	
+
 	public Endereco(String logradouro, String digitosCep, String numero, String cidade, boolean principal) {
 		this.logradouro = logradouro;
 		this.cep = new Cep(digitosCep);
