@@ -4,11 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoaPorId;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoasPorCep;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoasPorCidade;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoasPorNome;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDeTodasPessoas;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoas;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.CriarPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.DeletarPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.EditarPessoa;
@@ -29,28 +25,8 @@ public class PessoaBeanConfiguration {
 	}
 
 	@Bean
-	public BuscarDadosDePessoaPorId buscarDadosDePessoaPorId() {
-		return new BuscarDadosDePessoaPorId(pessoaAdapterRepository);
-	}
-
-	@Bean
-	public BuscarDadosDePessoasPorCep buscarPessoasPorCep() {
-		return new BuscarDadosDePessoasPorCep(pessoaAdapterRepository);
-	}
-
-	@Bean
-	public BuscarDadosDePessoasPorCidade buscarPessoasPorCidade() {
-		return new BuscarDadosDePessoasPorCidade(pessoaAdapterRepository);
-	}
-
-	@Bean
-	public BuscarDadosDePessoasPorNome buscarPessoasPorNome() {
-		return new BuscarDadosDePessoasPorNome(pessoaAdapterRepository);
-	}
-
-	@Bean
-	public BuscarDadosDeTodasPessoas buscarTodasPessoas() {
-		return new BuscarDadosDeTodasPessoas(pessoaAdapterRepository);
+	public BuscarDadosDePessoas buscarDadosDePessoa() {
+		return new BuscarDadosDePessoas(pessoaAdapterRepository);
 	}
 
 	@Bean
@@ -62,7 +38,7 @@ public class PessoaBeanConfiguration {
 	public DeletarPessoa deletarPessoa() {
 		return new DeletarPessoa(pessoaAdapterRepository);
 	}
-	
+
 	@Bean
 	public EditarEnderecoDaPessoa editarEnderecoDaPessoa() {
 		return new EditarEnderecoDaPessoa(pessoaAdapterRepository);

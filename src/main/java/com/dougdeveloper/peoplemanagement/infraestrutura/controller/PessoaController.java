@@ -20,11 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoaPorId;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoasPorCep;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoasPorCidade;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoasPorNome;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDeTodasPessoas;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoas;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.CriarPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.DeletarPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.EditarPessoa;
@@ -50,19 +46,7 @@ public class PessoaController {
 	private AdicionarEnderecoAPessoa adicionarEnderecoAPessoa;
 
 	@Autowired
-	private BuscarDadosDePessoaPorId buscarDadosDePessoaPorId;
-
-	@Autowired
-	private BuscarDadosDePessoasPorCep buscarPessoasPorCep;
-
-	@Autowired
-	private BuscarDadosDePessoasPorCidade buscarPessoasPorCidade;
-
-	@Autowired
-	private BuscarDadosDePessoasPorNome buscarPessoasPorNome;
-
-	@Autowired
-	private BuscarDadosDeTodasPessoas buscarTodasPessoas;
+	private BuscarDadosDePessoas buscarDadosDePessoas;
 
 	@Autowired
 	private CriarPessoa criarPessoa;
@@ -84,7 +68,8 @@ public class PessoaController {
 	@Operation(summary = "Criar Pessoa", description = "Endpoint para criar uma pessoa no sistema")
 	public ResponseEntity<Pessoa> criarPessoa(@RequestBody @Valid DadosCriarPessoa dados) {
 		DadosDePessoa dadosDePessoa = criarPessoa.executar(dados);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dadosDePessoa.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dadosDePessoa.getId())
+				.toUri();
 		return ResponseEntity.created(uri).build();
 	}
 
@@ -99,7 +84,8 @@ public class PessoaController {
 	@PutMapping(value = "/{id}")
 	@CacheEvict(value = { "buscarPorCep", "buscarPorCidade", "buscarPorNome", "buscarTodas" }, allEntries = true)
 	@Operation(summary = "Editar Pessoa", description = "Endpoint para editar uma pessoa cadastrada no sistema")
-	public ResponseEntity<DadosDePessoa> editarPessoa(@PathVariable Long id, @RequestBody @Valid DadosEditarPessoa dados) {
+	public ResponseEntity<DadosDePessoa> editarPessoa(@PathVariable Long id,
+			@RequestBody @Valid DadosEditarPessoa dados) {
 		DadosDePessoa dadosDePessoa = editarPessoa.executar(id, dados);
 		return ResponseEntity.ok().body(dadosDePessoa);
 	}
@@ -133,7 +119,7 @@ public class PessoaController {
 	@GetMapping(value = "/{id}")
 	@Operation(summary = "Buscar Dados de Pessoa pelo Id", description = "Endpoint para buscar os dados de uma pessoa cadastrada no sistema")
 	public ResponseEntity<DadosDePessoa> buscarPorId(@PathVariable Long id) {
-		DadosDePessoa dadosDePessoa = buscarDadosDePessoaPorId.executar(id);
+		DadosDePessoa dadosDePessoa = buscarDadosDePessoas.buscarPorId(id);
 		return ResponseEntity.ok().body(dadosDePessoa);
 	}
 
@@ -142,7 +128,7 @@ public class PessoaController {
 	@Operation(summary = "Buscar Dados de Pessoas pelo Cep", description = "Endpoint para buscar os dados de pessoas cadastradas no sistema "
 			+ "pelo Cep")
 	public ResponseEntity<Page<DadosDePessoa>> buscarPorCep(@PathVariable String cep, Pageable paginacao) {
-		Page<DadosDePessoa> dadosDePessoas = buscarPessoasPorCep.executar(cep, paginacao);
+		Page<DadosDePessoa> dadosDePessoas = buscarDadosDePessoas.buscarPorCep(cep, paginacao);
 		return ResponseEntity.ok().body(dadosDePessoas);
 	}
 
@@ -151,7 +137,7 @@ public class PessoaController {
 	@Operation(summary = "Buscar Dados de Pessoas pela Cidade", description = "Endpoint para buscar os dados de todas as pessoas cadastradas "
 			+ "no sistema pela cidade")
 	public ResponseEntity<Page<DadosDePessoa>> buscarPorCidade(@PathVariable String cidade, Pageable paginacao) {
-		Page<DadosDePessoa> dadosDePessoas = buscarPessoasPorCidade.executar(cidade, paginacao);
+		Page<DadosDePessoa> dadosDePessoas = buscarDadosDePessoas.buscarPorCidade(cidade, paginacao);
 		return ResponseEntity.ok().body(dadosDePessoas);
 	}
 
@@ -160,7 +146,7 @@ public class PessoaController {
 	@Operation(summary = "Buscar Dados de Pessoas pela nome", description = "Endpoint para buscar os dados de todas as pessoas cadastradas "
 			+ "no sistema pelo nome. A busca é realizada buscando todos as pessoas que contenham o nome desejado, ou parte dele")
 	public ResponseEntity<List<DadosDePessoa>> buscarPorNome(@PathVariable String nome) {
-		List<DadosDePessoa> dadosDePessoas = buscarPessoasPorNome.executar(nome);
+		List<DadosDePessoa> dadosDePessoas = buscarDadosDePessoas.buscarPorNome(nome);
 		return ResponseEntity.ok().body(dadosDePessoas);
 	}
 
@@ -168,7 +154,7 @@ public class PessoaController {
 	@Cacheable(value = "buscarTodas")
 	@Operation(summary = "Buscar Dados de Pessoas", description = "Endpoint para buscar os dados de todas as pessoas cadastradas no sistema")
 	public ResponseEntity<Page<DadosDePessoa>> buscarTodas(Pageable paginacao) {
-		Page<DadosDePessoa> dadosDePessoas = buscarTodasPessoas.executar(paginacao);
+		Page<DadosDePessoa> dadosDePessoas = buscarDadosDePessoas.buscarTodas(paginacao);
 		return ResponseEntity.ok().body(dadosDePessoas);
 	}
 
