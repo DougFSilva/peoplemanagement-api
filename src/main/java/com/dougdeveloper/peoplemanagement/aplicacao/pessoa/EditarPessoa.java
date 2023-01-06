@@ -1,5 +1,6 @@
 package com.dougdeveloper.peoplemanagement.aplicacao.pessoa;
 
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosDePessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosEditarPessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.PessoaRepository;
@@ -15,11 +16,11 @@ public class EditarPessoa {
 	}
 
 	@Transactional
-	public Pessoa executar(Long id, DadosEditarPessoa dados) {
+	public DadosDePessoa executar(Long id, DadosEditarPessoa dados) {
 		BuscarPessoaPorId buscarPessoaPorId = new BuscarPessoaPorId(repository);
 		Pessoa pessoa = buscarPessoaPorId.executar(id);
 		pessoa.setNome(dados.nome());
 		pessoa.setDataNascimento(dados.dataNascimento());
-		return repository.editar(pessoa);
+		return new DadosDePessoa(repository.editar(pessoa));
 	}
 }

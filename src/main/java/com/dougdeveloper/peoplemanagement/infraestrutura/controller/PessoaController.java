@@ -99,9 +99,9 @@ public class PessoaController {
 	@PutMapping(value = "/{id}")
 	@CacheEvict(value = { "buscarPorCep", "buscarPorCidade", "buscarPorNome", "buscarTodas" }, allEntries = true)
 	@Operation(summary = "Editar Pessoa", description = "Endpoint para editar uma pessoa cadastrada no sistema")
-	public ResponseEntity<Pessoa> editarPessoa(@PathVariable Long id, @RequestBody @Valid DadosEditarPessoa dados) {
-		Pessoa pessoa = editarPessoa.executar(id, dados);
-		return ResponseEntity.ok().body(pessoa);
+	public ResponseEntity<DadosDePessoa> editarPessoa(@PathVariable Long id, @RequestBody @Valid DadosEditarPessoa dados) {
+		DadosDePessoa dadosDePessoa = editarPessoa.executar(id, dados);
+		return ResponseEntity.ok().body(dadosDePessoa);
 	}
 
 	@PostMapping(value = "/{id}/adicionar-endereco")
