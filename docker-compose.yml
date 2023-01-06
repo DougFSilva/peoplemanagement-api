@@ -1,0 +1,8 @@
+version: '3.9'
+services:
+  peoplemanagement:
+    build: .
+    container_name: peoplemanagement-backend
+    ports:
+      - 8083:8080
+    restart: always
