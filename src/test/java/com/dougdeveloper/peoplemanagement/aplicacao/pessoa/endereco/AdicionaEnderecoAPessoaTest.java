@@ -19,6 +19,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarEndereco;
 import com.dougdeveloper.peoplemanagement.dominio.exception.ObjetoNaoEncontradoException;
+import com.dougdeveloper.peoplemanagement.dominio.logger.AppLogger;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Cep;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Endereco;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
@@ -28,16 +29,22 @@ class AdicionaEnderecoAPessoaTest {
 
 	@Mock
 	private PessoaRepository repository;
+	
+	@Mock
+	private AppLogger logger;
 
 	private AdicionaEnderecoAPessoa adicionaEnderecoAPessoa;
 
 	@Captor
 	private ArgumentCaptor<Pessoa> pessoaCaptor;
+	
+	@Captor
+	private ArgumentCaptor<Class<?>> loggerClassCaptor;
 
 	@BeforeEach
 	public void beforeEach() {
 		MockitoAnnotations.openMocks(this);
-		this.adicionaEnderecoAPessoa = new AdicionaEnderecoAPessoa(repository);
+		this.adicionaEnderecoAPessoa = new AdicionaEnderecoAPessoa(repository, logger);
 	}
 
 	@Test
@@ -49,7 +56,9 @@ class AdicionaEnderecoAPessoaTest {
 				"São Roque", false);
 		adicionaEnderecoAPessoa.adicionar(1l, dadosCriarEndereco);
 		Mockito.verify(repository).editar(pessoaCaptor.capture());
+		Mockito.verify(logger).info(Mockito.anyString(), loggerClassCaptor.capture());
 		Endereco novoEndereco = pessoaCaptor.getValue().getEnderecos().get(1);
+		assertEquals(AdicionaEnderecoAPessoa.class, loggerClassCaptor.getValue());
 		assertTrue(pessoaCaptor.getValue().getEnderecos().size() == 2);
 		assertEquals(dadosCriarEndereco.logradouro(), novoEndereco.getLogradouro());
 		assertEquals(dadosCriarEndereco.cep(), novoEndereco.getCep().getDigitos());
@@ -78,6 +87,7 @@ class AdicionaEnderecoAPessoaTest {
 		assertThrows(ObjetoNaoEncontradoException.class,
 				() -> adicionaEnderecoAPessoa.adicionar(1l, dadosCriarEndereco));
 		Mockito.verify(repository, never()).editar(Mockito.any());
+		Mockito.verifyNoInteractions(logger);
 	}
 
 	private Pessoa pessoa() {

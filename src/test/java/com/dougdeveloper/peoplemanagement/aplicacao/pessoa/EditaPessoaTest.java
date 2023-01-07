@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosEditarPessoa;
 import com.dougdeveloper.peoplemanagement.dominio.exception.ObjetoNaoEncontradoException;
+import com.dougdeveloper.peoplemanagement.dominio.logger.AppLogger;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.PessoaRepository;
 
@@ -25,16 +26,22 @@ class EditaPessoaTest {
 
 	@Mock
 	private PessoaRepository repository;
+	
+	@Mock
+	private AppLogger logger;
 
 	private EditaPessoa editaPessoa;
 
 	@Captor
 	private ArgumentCaptor<Pessoa> pessoaCaptor;
+	
+	@Captor
+	private ArgumentCaptor<Class<?>> loggerClassCaptor;
 
 	@BeforeEach
 	public void beforeEach() {
 		MockitoAnnotations.openMocks(this);
-		this.editaPessoa = new EditaPessoa(repository);
+		this.editaPessoa = new EditaPessoa(repository, logger);
 	}
 
 	@Test
@@ -46,6 +53,8 @@ class EditaPessoaTest {
 		Mockito.when(repository.editar(Mockito.any())).thenReturn(pessoa);
 		editaPessoa.editar(id, dadosEditarPessoa);
 		Mockito.verify(repository).editar(pessoaCaptor.capture());
+		Mockito.verify(logger).info(Mockito.anyString(), loggerClassCaptor.capture());
+		assertEquals(EditaPessoa.class, loggerClassCaptor.getValue());
 		assertEquals(dadosEditarPessoa.nome(), pessoaCaptor.getValue().getNome());
 		assertEquals(dadosEditarPessoa.dataNascimento(), pessoaCaptor.getValue().getDataNascimento());
 	}
@@ -56,6 +65,7 @@ class EditaPessoaTest {
 		Mockito.when(repository.buscarPorId(id)).thenReturn(Optional.empty());
 		assertThrows(ObjetoNaoEncontradoException.class, () -> editaPessoa.editar(id, Mockito.any()));
 		Mockito.verify(repository, never()).editar(Mockito.any());
+		Mockito.verifyNoInteractions(logger);
 	}
 
 }

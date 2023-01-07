@@ -21,7 +21,7 @@ import com.dougdeveloper.peoplemanagement.dominio.pessoa.PessoaRepository;
 public class BuscaDadosDePessoas {
 
 	private final PessoaRepository repository;
-
+	
 	public BuscaDadosDePessoas(PessoaRepository repository) {
 		this.repository = repository;
 	}

@@ -18,6 +18,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.dougdeveloper.peoplemanagement.dominio.exception.ObjetoNaoEncontradoException;
+import com.dougdeveloper.peoplemanagement.dominio.logger.AppLogger;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Cep;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Endereco;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
@@ -27,16 +28,22 @@ class RemoveEnderecoDaPessoaTest {
 
 	@Mock
 	private PessoaRepository repository;
+	
+	@Mock
+	private AppLogger logger;
 
 	private RemoveEnderecoDaPessoa removeEnderecoDaPessoa;
 
 	@Captor
 	private ArgumentCaptor<Pessoa> pessoaCaptor;
+	
+	@Captor
+	private ArgumentCaptor<Class<?>> loggerClassCaptor;
 
 	@BeforeEach
 	public void beforeEach() {
 		MockitoAnnotations.openMocks(this);
-		this.removeEnderecoDaPessoa = new RemoveEnderecoDaPessoa(repository);
+		this.removeEnderecoDaPessoa = new RemoveEnderecoDaPessoa(repository, logger);
 	}
 
 	@Test
@@ -46,6 +53,8 @@ class RemoveEnderecoDaPessoaTest {
 		Mockito.when(repository.editar(Mockito.any())).thenReturn(pessoa);
 		removeEnderecoDaPessoa.remover(1l, 1l);
 		Mockito.verify(repository).editar(pessoaCaptor.capture());
+		Mockito.verify(logger).info(Mockito.anyString(), loggerClassCaptor.capture());
+		assertEquals(RemoveEnderecoDaPessoa.class, loggerClassCaptor.getValue());
 		assertTrue(pessoaCaptor.getValue().getEnderecos().size() == 1);
 		assertEquals(2l, pessoaCaptor.getValue().getEnderecos().get(0).getId());
 	}
@@ -55,6 +64,7 @@ class RemoveEnderecoDaPessoaTest {
 		Mockito.when(repository.buscarPorId(1l)).thenReturn(Optional.empty());
 		assertThrows(ObjetoNaoEncontradoException.class, () -> removeEnderecoDaPessoa.remover(1l, Mockito.any()));
 		Mockito.verify(repository, never()).editar(Mockito.any());
+		Mockito.verifyNoInteractions(logger);
 	}
 
 	private Pessoa pessoa() {

@@ -14,6 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarPessoa;
+import com.dougdeveloper.peoplemanagement.dominio.logger.AppLogger;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.PessoaRepository;
 
@@ -21,16 +22,22 @@ class CriaPessoaTest {
 
 	@Mock
 	private PessoaRepository repository;
+	
+	@Mock
+	private AppLogger logger;
 
 	private CriaPessoa criaPessoa;
 
 	@Captor
 	private ArgumentCaptor<Pessoa> pessoaCaptor;
+	
+	@Captor
+	private ArgumentCaptor<Class<?>> loggerClassCaptor;
 
 	@BeforeEach
 	public void beforeEach() {
 		MockitoAnnotations.openMocks(this);
-		this.criaPessoa = new CriaPessoa(repository);
+		this.criaPessoa = new CriaPessoa(repository, logger);
 	}
 
 	@Test
@@ -40,7 +47,9 @@ class CriaPessoaTest {
 		Mockito.when(repository.criar(Mockito.any())).thenReturn(pessoa);
 		criaPessoa.criar(dadosCriarPessoa);
 		Mockito.verify(repository).criar(pessoaCaptor.capture());
+		Mockito.verify(logger).info(Mockito.anyString(), loggerClassCaptor.capture());
 		Pessoa pessoaACriar = pessoaCaptor.getValue();
+		assertEquals(CriaPessoa.class, loggerClassCaptor.getValue());
 		assertEquals(dadosCriarPessoa.nome(), pessoaACriar.getNome());
 		assertEquals(dadosCriarPessoa.dataNascimento(), pessoaACriar.getDataNascimento());
 	}

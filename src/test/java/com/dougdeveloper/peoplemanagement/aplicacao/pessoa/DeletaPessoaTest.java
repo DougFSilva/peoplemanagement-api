@@ -17,6 +17,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.dougdeveloper.peoplemanagement.dominio.exception.ObjetoNaoEncontradoException;
+import com.dougdeveloper.peoplemanagement.dominio.logger.AppLogger;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.PessoaRepository;
 
@@ -25,15 +26,21 @@ class DeletaPessoaTest {
 	@Mock
 	private PessoaRepository repository;
 	
+	@Mock
+	private AppLogger logger;
+	
 	private DeletaPessoa deletaPessoa;
 	
 	@Captor
 	private ArgumentCaptor<Pessoa> pessoaCaptor;
+	
+	@Captor
+	private ArgumentCaptor<Class<?>> loggerClassCaptor;
 
 	@BeforeEach
 	public void beforeEach() {
 		MockitoAnnotations.openMocks(this);
-		this.deletaPessoa = new DeletaPessoa(repository);
+		this.deletaPessoa = new DeletaPessoa(repository, logger);
 	}
 
 	@Test
@@ -43,6 +50,8 @@ class DeletaPessoaTest {
 		Mockito.when(repository.buscarPorId(id)).thenReturn(Optional.of(pessoa));
 		deletaPessoa.deletar(id);
 		Mockito.verify(repository).deletar(pessoaCaptor.capture());
+		Mockito.verify(logger).info(Mockito.anyString(), loggerClassCaptor.capture());
+		assertEquals(DeletaPessoa.class, loggerClassCaptor.getValue());
 		assertEquals(id, pessoaCaptor.getValue().getId());
 	}
 	
@@ -52,6 +61,7 @@ class DeletaPessoaTest {
 		Mockito.when(repository.buscarPorId(id)).thenReturn(Optional.empty());
 		assertThrows(ObjetoNaoEncontradoException.class, () -> deletaPessoa.deletar(id));
 		Mockito.verify(repository, never()).deletar(Mockito.any());
+		Mockito.verifyNoInteractions(logger);
 	}
 
 }

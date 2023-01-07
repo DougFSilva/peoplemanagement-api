@@ -11,6 +11,7 @@ import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.EditaPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.AdicionaEnderecoAPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.EditaEnderecoDaPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.RemoveEnderecoDaPessoa;
+import com.dougdeveloper.peoplemanagement.infraestrutura.logger.LoggerAdapter;
 import com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.adapter.PessoaRepositoryAdapter;
 
 /**
@@ -23,41 +24,44 @@ import com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.adapter.Pe
 public class PessoaBeanConfiguration {
 
 	@Autowired
-	private PessoaRepositoryAdapter pessoaAdapterRepository;
+	private PessoaRepositoryAdapter pessoaRepositoryAdapter;
+	
+	@Autowired
+	private LoggerAdapter loggerAdapter;
 
 	@Bean
 	public AdicionaEnderecoAPessoa adicionaEnderecoAPessoa() {
-		return new AdicionaEnderecoAPessoa(pessoaAdapterRepository);
+		return new AdicionaEnderecoAPessoa(pessoaRepositoryAdapter, loggerAdapter);
 	}
 
 	@Bean
 	public BuscaDadosDePessoas buscaDadosDePessoa() {
-		return new BuscaDadosDePessoas(pessoaAdapterRepository);
+		return new BuscaDadosDePessoas(pessoaRepositoryAdapter);
 	}
 
 	@Bean
 	public CriaPessoa criaPessoa() {
-		return new CriaPessoa(pessoaAdapterRepository);
+		return new CriaPessoa(pessoaRepositoryAdapter, loggerAdapter);
 	}
 
 	@Bean
 	public DeletaPessoa deletaPessoa() {
-		return new DeletaPessoa(pessoaAdapterRepository);
+		return new DeletaPessoa(pessoaRepositoryAdapter, loggerAdapter);
 	}
 
 	@Bean
 	public EditaEnderecoDaPessoa editaEnderecoDaPessoa() {
-		return new EditaEnderecoDaPessoa(pessoaAdapterRepository);
+		return new EditaEnderecoDaPessoa(pessoaRepositoryAdapter, loggerAdapter);
 	}
 
 	@Bean
 	public EditaPessoa editaPessoa() {
-		return new EditaPessoa(pessoaAdapterRepository);
+		return new EditaPessoa(pessoaRepositoryAdapter, loggerAdapter);
 	}
 
 	@Bean
 	public RemoveEnderecoDaPessoa removeEnderecoDaPessoa() {
-		return new RemoveEnderecoDaPessoa(pessoaAdapterRepository);
+		return new RemoveEnderecoDaPessoa(pessoaRepositoryAdapter, loggerAdapter);
 	}
 
 }
