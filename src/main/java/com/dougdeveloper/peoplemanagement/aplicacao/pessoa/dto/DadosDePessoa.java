@@ -7,7 +7,13 @@ import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
 
 import lombok.Getter;
 import lombok.ToString;
-
+/**
+ * A classe <b>DadosDePessoa</b> é um Data Transfer Object utlizado para representar os atributos de um objeto do tipo <b>Pessoa</b>
+ * de forma customizada
+ * @author Douglas Ferreira da Silva
+ * @since Janeiro 2023
+ * @version 1.0
+ */
 @Getter
 @ToString
 public class DadosDePessoa {

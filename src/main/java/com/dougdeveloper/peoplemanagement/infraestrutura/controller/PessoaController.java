@@ -20,54 +20,59 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoas;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.CriarPessoa;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.DeletarPessoa;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.EditarPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscaDadosDePessoas;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.CriaPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.DeletaPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.EditaPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarEndereco;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosDePessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosEditarEndereco;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosEditarPessoa;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.AdicionarEnderecoAPessoa;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.EditarEnderecoDaPessoa;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.RemoverEnderecoDaPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.AdicionaEnderecoAPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.EditaEnderecoDaPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.RemoveEnderecoDaPessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
-
+/**
+ * A classe <b>PessoaController</b> é responsável por receber as requisições HTTP referentes a manipulação de objetos do tipo <b>Pessoa</b>
+ * @author Douglas Ferreira da Silva
+ * @since Janeiro 2023
+ * @version 1.0
+ */
 @RestController
 @RequestMapping(value = "/pessoa")
 @EnableCaching
 public class PessoaController {
 
 	@Autowired
-	private AdicionarEnderecoAPessoa adicionarEnderecoAPessoa;
+	private AdicionaEnderecoAPessoa adicionaEnderecoAPessoa;
 
 	@Autowired
-	private BuscarDadosDePessoas buscarDadosDePessoas;
+	private BuscaDadosDePessoas buscaDadosDePessoas;
 
 	@Autowired
-	private CriarPessoa criarPessoa;
+	private CriaPessoa criaPessoa;
 
 	@Autowired
-	private DeletarPessoa deletarPessoa;
+	private DeletaPessoa deletaPessoa;
 
 	@Autowired
-	private EditarEnderecoDaPessoa editarEnderecoDaPessoa;
+	private EditaEnderecoDaPessoa editaEnderecoDaPessoa;
 
 	@Autowired
-	private EditarPessoa editarPessoa;
+	private EditaPessoa editaPessoa;
 
 	@Autowired
-	private RemoverEnderecoDaPessoa removerEnderecoDaPessoa;
+	private RemoveEnderecoDaPessoa removeEnderecoDaPessoa;
 
 	@PostMapping
 	@CacheEvict(value = { "buscarPorCep", "buscarPorCidade", "buscarPorNome", "buscarTodas" }, allEntries = true)
 	@Operation(summary = "Criar Pessoa", description = "Endpoint para criar uma pessoa no sistema")
 	public ResponseEntity<Pessoa> criarPessoa(@RequestBody @Valid DadosCriarPessoa dados) {
-		DadosDePessoa dadosDePessoa = criarPessoa.executar(dados);
+		DadosDePessoa dadosDePessoa = criaPessoa.criar(dados);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dadosDePessoa.getId())
 				.toUri();
 		return ResponseEntity.created(uri).build();
@@ -77,7 +82,7 @@ public class PessoaController {
 	@CacheEvict(value = { "buscarPorCep", "buscarPorCidade", "buscarPorNome", "buscarTodas" }, allEntries = true)
 	@Operation(summary = "Deletar Pessoa", description = "Endpoint para deletar uma pessoa cadastrada no sistema")
 	public ResponseEntity<Void> deletarPessoa(@PathVariable Long id) {
-		deletarPessoa.executar(id);
+		deletaPessoa.deletar(id);
 		return ResponseEntity.noContent().build();
 	}
 
@@ -86,7 +91,7 @@ public class PessoaController {
 	@Operation(summary = "Editar Pessoa", description = "Endpoint para editar uma pessoa cadastrada no sistema")
 	public ResponseEntity<DadosDePessoa> editarPessoa(@PathVariable Long id,
 			@RequestBody @Valid DadosEditarPessoa dados) {
-		DadosDePessoa dadosDePessoa = editarPessoa.executar(id, dados);
+		DadosDePessoa dadosDePessoa = editaPessoa.editar(id, dados);
 		return ResponseEntity.ok().body(dadosDePessoa);
 	}
 
@@ -95,7 +100,7 @@ public class PessoaController {
 	@Operation(summary = "Adicionar Endereço à Pessoa", description = "Endpoint para adicionar um endereço à uma pessoa cadastrada no sistema")
 	public ResponseEntity<DadosDePessoa> adicionarEndereco(@PathVariable Long id,
 			@RequestBody @Valid DadosCriarEndereco dados) {
-		DadosDePessoa dadosDePessoa = adicionarEnderecoAPessoa.executar(id, dados);
+		DadosDePessoa dadosDePessoa = adicionaEnderecoAPessoa.adicionar(id, dados);
 		return ResponseEntity.ok().body(dadosDePessoa);
 	}
 
@@ -103,7 +108,7 @@ public class PessoaController {
 	@CacheEvict(value = { "buscarPorCep", "buscarPorCidade", "buscarPorNome", "buscarTodas" }, allEntries = true)
 	@Operation(summary = "Remover Endereço da Pessoa", description = "Endpoint para remover um endereço de uma pessoa cadastrada no sistema")
 	public ResponseEntity<DadosDePessoa> removerEndereco(@PathVariable Long id, @PathVariable Long enderecoId) {
-		DadosDePessoa dadosDePessoa = removerEnderecoDaPessoa.executar(id, enderecoId);
+		DadosDePessoa dadosDePessoa = removeEnderecoDaPessoa.remover(id, enderecoId);
 		return ResponseEntity.ok().body(dadosDePessoa);
 	}
 
@@ -112,14 +117,14 @@ public class PessoaController {
 	@Operation(summary = "Editar Endereço da Pessoa", description = "Endpoint para editar um endereço de uma pessoa cadastrada no sistema")
 	public ResponseEntity<DadosDePessoa> editarEndereco(@PathVariable Long id,
 			@RequestBody @Valid DadosEditarEndereco dados) {
-		DadosDePessoa dadosDePessoa = editarEnderecoDaPessoa.executar(id, dados);
+		DadosDePessoa dadosDePessoa = editaEnderecoDaPessoa.editar(id, dados);
 		return ResponseEntity.ok().body(dadosDePessoa);
 	}
 
 	@GetMapping(value = "/{id}")
 	@Operation(summary = "Buscar Dados de Pessoa pelo Id", description = "Endpoint para buscar os dados de uma pessoa cadastrada no sistema")
 	public ResponseEntity<DadosDePessoa> buscarPorId(@PathVariable Long id) {
-		DadosDePessoa dadosDePessoa = buscarDadosDePessoas.buscarPorId(id);
+		DadosDePessoa dadosDePessoa = buscaDadosDePessoas.buscarPorId(id);
 		return ResponseEntity.ok().body(dadosDePessoa);
 	}
 
@@ -128,7 +133,7 @@ public class PessoaController {
 	@Operation(summary = "Buscar Dados de Pessoas pelo Cep", description = "Endpoint para buscar os dados de pessoas cadastradas no sistema "
 			+ "pelo Cep")
 	public ResponseEntity<Page<DadosDePessoa>> buscarPorCep(@PathVariable String cep, Pageable paginacao) {
-		Page<DadosDePessoa> dadosDePessoas = buscarDadosDePessoas.buscarPorCep(cep, paginacao);
+		Page<DadosDePessoa> dadosDePessoas = buscaDadosDePessoas.buscarPorCep(cep, paginacao);
 		return ResponseEntity.ok().body(dadosDePessoas);
 	}
 
@@ -137,7 +142,7 @@ public class PessoaController {
 	@Operation(summary = "Buscar Dados de Pessoas pela Cidade", description = "Endpoint para buscar os dados de todas as pessoas cadastradas "
 			+ "no sistema pela cidade")
 	public ResponseEntity<Page<DadosDePessoa>> buscarPorCidade(@PathVariable String cidade, Pageable paginacao) {
-		Page<DadosDePessoa> dadosDePessoas = buscarDadosDePessoas.buscarPorCidade(cidade, paginacao);
+		Page<DadosDePessoa> dadosDePessoas = buscaDadosDePessoas.buscarPorCidade(cidade, paginacao);
 		return ResponseEntity.ok().body(dadosDePessoas);
 	}
 
@@ -146,7 +151,7 @@ public class PessoaController {
 	@Operation(summary = "Buscar Dados de Pessoas pela nome", description = "Endpoint para buscar os dados de todas as pessoas cadastradas "
 			+ "no sistema pelo nome. A busca é realizada buscando todos as pessoas que contenham o nome desejado, ou parte dele")
 	public ResponseEntity<List<DadosDePessoa>> buscarPorNome(@PathVariable String nome) {
-		List<DadosDePessoa> dadosDePessoas = buscarDadosDePessoas.buscarPorNome(nome);
+		List<DadosDePessoa> dadosDePessoas = buscaDadosDePessoas.buscarPorNome(nome);
 		return ResponseEntity.ok().body(dadosDePessoas);
 	}
 
@@ -154,7 +159,7 @@ public class PessoaController {
 	@Cacheable(value = "buscarTodas")
 	@Operation(summary = "Buscar Dados de Pessoas", description = "Endpoint para buscar os dados de todas as pessoas cadastradas no sistema")
 	public ResponseEntity<Page<DadosDePessoa>> buscarTodas(Pageable paginacao) {
-		Page<DadosDePessoa> dadosDePessoas = buscarDadosDePessoas.buscarTodas(paginacao);
+		Page<DadosDePessoa> dadosDePessoas = buscaDadosDePessoas.buscarTodas(paginacao);
 		return ResponseEntity.ok().body(dadosDePessoas);
 	}
 

@@ -19,6 +19,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * A classe <b>PessoaEntity</b> representa uma entidade referente a classe <b>Pessoa</b>
+ * @author Douglas Ferreira da Silva
+ * @since Janeiro 2023
+ * @version 1.0
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

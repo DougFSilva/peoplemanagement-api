@@ -1,0 +1,12 @@
+com.dougdeveloper.peoplemanagement
+com.dougdeveloper.peoplemanagement.aplicacao.pessoa
+com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto
+com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco
+com.dougdeveloper.peoplemanagement.dominio.exception
+com.dougdeveloper.peoplemanagement.dominio.pessoa
+com.dougdeveloper.peoplemanagement.infraestrutura.config.bean
+com.dougdeveloper.peoplemanagement.infraestrutura.controller
+com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.adapter
+com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.converter
+com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.dao
+com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.entity

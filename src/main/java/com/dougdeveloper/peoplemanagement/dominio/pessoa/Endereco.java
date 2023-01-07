@@ -6,6 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * A classe <b>Endereco</b> define o modelo de um endereço de uma pessoa.
+ * @author Douglas Ferreira da Silva
+ * @since Janeiro 2023
+ * @version 1.0
+ */
 @AllArgsConstructor
 @Getter
 @Setter

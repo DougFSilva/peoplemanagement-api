@@ -10,7 +10,13 @@ import com.dougdeveloper.peoplemanagement.dominio.pessoa.Endereco;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
 import com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.entity.EnderecoEntity;
 import com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.entity.PessoaEntity;
-
+/**
+ * A classe <b>PessoaEntityConverter</b> possui os métodos responsáveis pela conversão de um objeto do tipo <b>Pessoa</b> para o tipo
+ * <b>PessoaEntity</b> e vice-versa.
+ * @author Douglas Ferreira da Silva
+ * @since Janeiro 2023
+ * @version 1.0
+ */
 @Service
 public class PessoaEntityConverter {
 

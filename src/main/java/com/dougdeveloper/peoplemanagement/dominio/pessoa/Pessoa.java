@@ -12,6 +12,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * A classe <b>Pessoa</b> define o modelo de uma pessoa.
+ * @author Douglas Ferreira da Silva
+ * @since Janeiro 2023
+ * @version 1.0
+ */
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Getter

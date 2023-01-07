@@ -4,54 +4,60 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscarDadosDePessoas;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.CriarPessoa;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.DeletarPessoa;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.EditarPessoa;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.AdicionarEnderecoAPessoa;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.EditarEnderecoDaPessoa;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.RemoverEnderecoDaPessoa;
-import com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.adapter.PessoaAdapterRepository;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.BuscaDadosDePessoas;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.CriaPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.DeletaPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.EditaPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.AdicionaEnderecoAPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.EditaEnderecoDaPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.RemoveEnderecoDaPessoa;
+import com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.adapter.PessoaRepositoryAdapter;
 
+/**
+ * A classe <b>PessoaBeanConfiguration</b> contém os Beans de configuração para o Spring criar os usecases refentes a <b>Pessoa</b>
+ * @author Douglas Ferreira da Silva
+ * @since Janeiro 2023
+ * @version 1.0
+ */
 @Configuration
 public class PessoaBeanConfiguration {
 
 	@Autowired
-	private PessoaAdapterRepository pessoaAdapterRepository;
+	private PessoaRepositoryAdapter pessoaAdapterRepository;
 
 	@Bean
-	public AdicionarEnderecoAPessoa adicionarEnderecoAPessoa() {
-		return new AdicionarEnderecoAPessoa(pessoaAdapterRepository);
+	public AdicionaEnderecoAPessoa adicionaEnderecoAPessoa() {
+		return new AdicionaEnderecoAPessoa(pessoaAdapterRepository);
 	}
 
 	@Bean
-	public BuscarDadosDePessoas buscarDadosDePessoa() {
-		return new BuscarDadosDePessoas(pessoaAdapterRepository);
+	public BuscaDadosDePessoas buscaDadosDePessoa() {
+		return new BuscaDadosDePessoas(pessoaAdapterRepository);
 	}
 
 	@Bean
-	public CriarPessoa criarPessoa() {
-		return new CriarPessoa(pessoaAdapterRepository);
+	public CriaPessoa criaPessoa() {
+		return new CriaPessoa(pessoaAdapterRepository);
 	}
 
 	@Bean
-	public DeletarPessoa deletarPessoa() {
-		return new DeletarPessoa(pessoaAdapterRepository);
+	public DeletaPessoa deletaPessoa() {
+		return new DeletaPessoa(pessoaAdapterRepository);
 	}
 
 	@Bean
-	public EditarEnderecoDaPessoa editarEnderecoDaPessoa() {
-		return new EditarEnderecoDaPessoa(pessoaAdapterRepository);
+	public EditaEnderecoDaPessoa editaEnderecoDaPessoa() {
+		return new EditaEnderecoDaPessoa(pessoaAdapterRepository);
 	}
 
 	@Bean
-	public EditarPessoa editarPessoa() {
-		return new EditarPessoa(pessoaAdapterRepository);
+	public EditaPessoa editaPessoa() {
+		return new EditaPessoa(pessoaAdapterRepository);
 	}
 
 	@Bean
-	public RemoverEnderecoDaPessoa removerEnderecoDaPessoa() {
-		return new RemoverEnderecoDaPessoa(pessoaAdapterRepository);
+	public RemoveEnderecoDaPessoa removeEnderecoDaPessoa() {
+		return new RemoveEnderecoDaPessoa(pessoaAdapterRepository);
 	}
 
 }

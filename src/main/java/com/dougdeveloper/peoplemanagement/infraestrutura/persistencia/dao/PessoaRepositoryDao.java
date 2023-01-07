@@ -9,6 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.entity.PessoaEntity;
 
+/**
+ * A interface <b>PessoaRepositoryDao</b> é uma Data Access Object responsável por encapsular o acesso ao banco de dados
+ * @author Douglas Ferreira da Silva
+ * @since Janeiro 2023
+ * @version 1.0
+ */
 @Repository
 public interface PessoaRepositoryDao extends JpaRepository<PessoaEntity, Long> {
 

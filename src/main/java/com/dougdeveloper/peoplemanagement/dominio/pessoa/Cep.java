@@ -2,6 +2,12 @@ package com.dougdeveloper.peoplemanagement.dominio.pessoa;
 
 import com.dougdeveloper.peoplemanagement.dominio.exception.CepInvalidoException;
 
+/**
+ * A classe <b>Cep</b> define um Value Object referente a um código de endereçamento postal (CEP), com validação na construção do objeto
+ * @author Douglas Ferreira da Silva
+ * @since Janeiro 2023
+ * @version 1.0
+ */
 public class Cep {
 
 	private String digitos;

@@ -13,6 +13,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.dougdeveloper.peoplemanagement.dominio.exception.CepInvalidoException;
 import com.dougdeveloper.peoplemanagement.dominio.exception.ObjetoNaoEncontradoException;
 
+/**
+ * A classe <b>ExceptionHandlerController</b> é responsável por capturar os erros lançados pela API e responder as requisições de forma
+ * customizada utilizando a classe <b>ExceptionPadrao</b>
+ * @author Douglas Ferreira da Silva
+ * @since Janeiro 2023
+ * @version 1.0
+ */
 @ControllerAdvice
 public class ExceptionHandlerController {
 

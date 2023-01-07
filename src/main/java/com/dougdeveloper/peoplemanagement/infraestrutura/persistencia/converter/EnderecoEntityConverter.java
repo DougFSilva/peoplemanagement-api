@@ -7,6 +7,13 @@ import com.dougdeveloper.peoplemanagement.dominio.pessoa.Endereco;
 import com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.entity.CepEntity;
 import com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.entity.EnderecoEntity;
 
+/**
+ * A classe <b>EnderecoEntityConverter</b> possui os métodos responsáveis pela conversão de um objeto do tipo <b>Endereco</b> para o tipo
+ * <b>EnderecoEntity</b> e vice-versa.
+ * @author Douglas Ferreira da Silva
+ * @since Janeiro 2023
+ * @version 1.0
+ */
 @Service
 public class EnderecoEntityConverter {
 
