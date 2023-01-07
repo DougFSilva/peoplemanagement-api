@@ -27,6 +27,8 @@ Com o comando *docker compose up -d* a aplicação iniciará.
 * Swagger
 * Docker
 * Clean architeture
+* Junit
+* Mockito
 ---
 ## ✒️ Autor
 * Douglas Ferreira da Silva
