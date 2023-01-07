@@ -6,3 +6,5 @@ services:
     ports:
       - 8083:8080
     restart: always
+    volumes:
+      - /app/peoplemanagement/logs:/logs
