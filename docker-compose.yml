@@ -7,4 +7,4 @@ services:
       - 8083:8080
     restart: always
     volumes:
-      - /app/peoplemanagement/logs:/logs
+      - C:/Users/dougl/Documents/codes/peoplemanagement/logs:/logs

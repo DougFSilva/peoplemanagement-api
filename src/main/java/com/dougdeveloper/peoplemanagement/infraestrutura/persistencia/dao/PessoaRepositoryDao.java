@@ -22,6 +22,6 @@ public interface PessoaRepositoryDao extends JpaRepository<PessoaEntity, Long> {
 
 	Page<PessoaEntity> findAllByEnderecosCepDigitos(String cep, Pageable paginacao);
 
-	Page<PessoaEntity> findAllByEnderecosCidade(String cidade, Pageable paginacao);
+	Page<PessoaEntity> findAllByEnderecosCidadeContainingIgnoreCase(String cidade, Pageable paginacao);
 
 }
