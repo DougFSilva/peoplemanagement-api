@@ -25,10 +25,9 @@ import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.CriaPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.DeletaPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.EditaPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarEndereco;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarOuEditarPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosDePessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosEditarEndereco;
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosEditarPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.AdicionaEnderecoAPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.EditaEnderecoDaPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.endereco.RemoveEnderecoDaPessoa;
@@ -71,7 +70,7 @@ public class PessoaController {
 	@PostMapping
 	@CacheEvict(value = { "buscarPorCep", "buscarPorCidade", "buscarPorNome", "buscarTodas" }, allEntries = true)
 	@Operation(summary = "Criar Pessoa", description = "Endpoint para criar uma pessoa no sistema")
-	public ResponseEntity<Pessoa> criarPessoa(@RequestBody @Valid DadosCriarPessoa dados) {
+	public ResponseEntity<Pessoa> criarPessoa(@RequestBody @Valid DadosCriarOuEditarPessoa dados) {
 		DadosDePessoa dadosDePessoa = criaPessoa.criar(dados);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dadosDePessoa.getId())
 				.toUri();
@@ -90,7 +89,7 @@ public class PessoaController {
 	@CacheEvict(value = { "buscarPorCep", "buscarPorCidade", "buscarPorNome", "buscarTodas" }, allEntries = true)
 	@Operation(summary = "Editar Pessoa", description = "Endpoint para editar uma pessoa cadastrada no sistema")
 	public ResponseEntity<DadosDePessoa> editarPessoa(@PathVariable Long id,
-			@RequestBody @Valid DadosEditarPessoa dados) {
+			@RequestBody @Valid DadosCriarOuEditarPessoa dados) {
 		DadosDePessoa dadosDePessoa = editaPessoa.editar(id, dados);
 		return ResponseEntity.ok().body(dadosDePessoa);
 	}

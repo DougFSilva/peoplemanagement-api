@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosEditarPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarOuEditarPessoa;
 import com.dougdeveloper.peoplemanagement.dominio.exception.ObjetoNaoEncontradoException;
 import com.dougdeveloper.peoplemanagement.dominio.logger.AppLogger;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
@@ -26,7 +26,7 @@ class EditaPessoaTest {
 
 	@Mock
 	private PessoaRepository repository;
-	
+
 	@Mock
 	private AppLogger logger;
 
@@ -34,7 +34,7 @@ class EditaPessoaTest {
 
 	@Captor
 	private ArgumentCaptor<Pessoa> pessoaCaptor;
-	
+
 	@Captor
 	private ArgumentCaptor<Class<?>> loggerClassCaptor;
 
@@ -48,7 +48,8 @@ class EditaPessoaTest {
 	void deveriaEditarUmaPessoa() {
 		Long id = 1l;
 		Pessoa pessoa = new Pessoa(id, "Fulano da Silva", LocalDate.parse("1991-04-10"), new ArrayList<>());
-		DadosEditarPessoa dadosEditarPessoa = new DadosEditarPessoa("Sicrano da Silva", LocalDate.parse("1992-05-20"));
+		DadosCriarOuEditarPessoa dadosEditarPessoa = new DadosCriarOuEditarPessoa("Sicrano da Silva",
+				LocalDate.parse("1992-05-20"));
 		Mockito.when(repository.buscarPorId(id)).thenReturn(Optional.of(pessoa));
 		Mockito.when(repository.editar(Mockito.any())).thenReturn(pessoa);
 		editaPessoa.editar(id, dadosEditarPessoa);

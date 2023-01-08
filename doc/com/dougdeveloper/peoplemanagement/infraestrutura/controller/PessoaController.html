@@ -140,7 +140,7 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buscarTodas(org.springframework.data.domain.Pageable)" class="member-name-link">buscarTodas</a><wbr>(org.springframework.data.domain.Pageable&nbsp;paginacao)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.http.ResponseEntity&lt;<a href="../../dominio/pessoa/Pessoa.html" title="class in com.dougdeveloper.peoplemanagement.dominio.pessoa">Pessoa</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#criarPessoa(com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarPessoa)" class="member-name-link">criarPessoa</a><wbr>(@Valid <a href="../../aplicacao/pessoa/dto/DadosCriarPessoa.html" title="class in com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto">DadosCriarPessoa</a>&nbsp;dados)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#criarPessoa(com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarOuEditarPessoa)" class="member-name-link">criarPessoa</a><wbr>(@Valid <a href="../../aplicacao/pessoa/dto/DadosCriarPessoa.html" title="class in com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto">DadosCriarPessoa</a>&nbsp;dados)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.http.ResponseEntity&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deletarPessoa(java.lang.Long)" class="member-name-link">deletarPessoa</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
@@ -189,7 +189,7 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="criarPessoa(com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarPessoa)">
+<section class="detail" id="criarPessoa(com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarOuEditarPessoa)">
 <h3>criarPessoa</h3>
 <div class="member-signature"><span class="annotations">@PostMapping
 @CacheEvict(value={"buscarPorCep","buscarPorCidade","buscarPorNome","buscarTodas"},

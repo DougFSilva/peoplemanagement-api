@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarOuEditarPessoa;
 import com.dougdeveloper.peoplemanagement.dominio.logger.AppLogger;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.PessoaRepository;
@@ -42,7 +42,7 @@ class CriaPessoaTest {
 
 	@Test
 	void deveriaCriarUmaPessoa() {
-		DadosCriarPessoa dadosCriarPessoa = new DadosCriarPessoa("Fulano da Silva", LocalDate.parse("1991-04-10"));
+		DadosCriarOuEditarPessoa dadosCriarPessoa = new DadosCriarOuEditarPessoa("Fulano da Silva", LocalDate.parse("1991-04-10"));
 		Pessoa pessoa = new Pessoa(1l, dadosCriarPessoa.nome(), dadosCriarPessoa.dataNascimento(), new ArrayList<>());
 		Mockito.when(repository.criar(Mockito.any())).thenReturn(pessoa);
 		criaPessoa.criar(dadosCriarPessoa);

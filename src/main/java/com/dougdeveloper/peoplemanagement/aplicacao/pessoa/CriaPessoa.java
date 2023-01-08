@@ -1,7 +1,7 @@
 package com.dougdeveloper.peoplemanagement.aplicacao.pessoa;
 
 
-import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarPessoa;
+import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosCriarOuEditarPessoa;
 import com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto.DadosDePessoa;
 import com.dougdeveloper.peoplemanagement.dominio.logger.AppLogger;
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
@@ -27,7 +27,7 @@ public class CriaPessoa {
 	}
 
 	@Transactional
-	public DadosDePessoa criar(DadosCriarPessoa dados) {
+	public DadosDePessoa criar(DadosCriarOuEditarPessoa dados) {
 		Pessoa pessoa = new Pessoa(dados.nome(), dados.dataNascimento());
 		Pessoa pessoaCriada = repository.criar(pessoa);
 		logger.info("Pessoa de nome " + pessoaCriada.getNome() + " e id " + pessoaCriada.getId() + " criada!", CriaPessoa.class);
