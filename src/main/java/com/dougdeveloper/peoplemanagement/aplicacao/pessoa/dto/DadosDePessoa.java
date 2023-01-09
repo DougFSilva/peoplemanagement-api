@@ -1,6 +1,6 @@
 package com.dougdeveloper.peoplemanagement.aplicacao.pessoa.dto;
 
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.dougdeveloper.peoplemanagement.dominio.pessoa.Pessoa;
@@ -22,14 +22,14 @@ public class DadosDePessoa {
 	
 	private String nome;
 	
-	private String dataNascimento;
+	private LocalDate dataNascimento;
 	
 	private List<DadosDeEndereco> enderecos;
 	
 	public DadosDePessoa(Pessoa pessoa) {
 		this.id = pessoa.getId();
 		this.nome = pessoa.getNome();
-		this.dataNascimento = pessoa.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		this.dataNascimento = pessoa.getDataNascimento();
 		this.enderecos = pessoa.getEnderecos().stream().map(endereco -> new DadosDeEndereco(endereco)).toList();
 	}
 }
