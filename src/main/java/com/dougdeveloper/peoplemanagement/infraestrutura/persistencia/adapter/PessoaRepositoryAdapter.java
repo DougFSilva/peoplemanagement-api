@@ -1,6 +1,5 @@
 package com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.adapter;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +58,9 @@ public class PessoaRepositoryAdapter implements PessoaRepository {
 	}
 
 	@Override
-	public List<Pessoa> buscarPorNome(String nome) {
-		List<PessoaEntity> entities = repository.findAllByNomeContainingIgnoreCase(nome);
-		return entities.stream().map(entity -> pessoaEntityConverter.paraPessoa(entity)).toList();
+	public Page<Pessoa> buscarPorNome(String nome, Pageable paginacao) {
+		Page<PessoaEntity> entities = repository.findAllByNomeContainingIgnoreCase(nome, paginacao);
+		return entities.map(entity -> pessoaEntityConverter.paraPessoa(entity));
 	}
 
 	@Override

@@ -1,7 +1,5 @@
 package com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.dao;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,7 +16,7 @@ import com.dougdeveloper.peoplemanagement.infraestrutura.persistencia.entity.Pes
 @Repository
 public interface PessoaRepositoryDao extends JpaRepository<PessoaEntity, Long> {
 
-	List<PessoaEntity> findAllByNomeContainingIgnoreCase(String nome);
+	Page<PessoaEntity> findAllByNomeContainingIgnoreCase(String nome, Pageable paginacao);
 
 	Page<PessoaEntity> findAllByEnderecosCepDigitos(String cep, Pageable paginacao);
 

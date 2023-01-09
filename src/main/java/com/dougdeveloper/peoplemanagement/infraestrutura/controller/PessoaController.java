@@ -149,8 +149,8 @@ public class PessoaController {
 	@Cacheable(value = "buscarPorNome")
 	@Operation(summary = "Buscar Dados de Pessoas pela nome", description = "Endpoint para buscar os dados de todas as pessoas cadastradas "
 			+ "no sistema pelo nome. A busca é realizada buscando todos as pessoas que contenham o nome desejado, ou parte dele")
-	public ResponseEntity<List<DadosDePessoa>> buscarPorNome(@PathVariable String nome) {
-		List<DadosDePessoa> dadosDePessoas = buscaDadosDePessoas.buscarPorNome(nome);
+	public ResponseEntity<List<DadosDePessoa>> buscarPorNome(@PathVariable String nome, Pageable paginacao) {
+		List<DadosDePessoa> dadosDePessoas = buscaDadosDePessoas.buscarPorNome(nome, paginacao);
 		return ResponseEntity.ok().body(dadosDePessoas);
 	}
 

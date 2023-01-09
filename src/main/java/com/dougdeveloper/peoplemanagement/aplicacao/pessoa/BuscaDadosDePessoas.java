@@ -1,7 +1,6 @@
 package com.dougdeveloper.peoplemanagement.aplicacao.pessoa;
 
 import java.util.List;
-
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -42,8 +41,8 @@ public class BuscaDadosDePessoas {
 		return repository.buscarPorCidade(cidade, paginacao).map(pessoa -> new DadosDePessoa(pessoa));
 	}
 
-	public List<DadosDePessoa> buscarPorNome(String nome) {
-		return repository.buscarPorNome(nome).stream().map(pessoa -> new DadosDePessoa(pessoa)).toList();
+	public List<DadosDePessoa> buscarPorNome(String nome, Pageable paginacao) {
+		return repository.buscarPorNome(nome, paginacao).stream().map(pessoa -> new DadosDePessoa(pessoa)).toList();
 	}
 
 	public Page<DadosDePessoa> buscarTodas(Pageable paginacao) {
