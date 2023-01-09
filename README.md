@@ -22,6 +22,7 @@ Com o comando *docker compose up -d* a aplicação iniciará.
 ## 🛠️Construído com
 
 * Spring boot
+* Spring Data JPA
 * Banco H2
 * SLF4J
 * Swagger
